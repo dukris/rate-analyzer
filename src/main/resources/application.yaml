@@ -1,0 +1,35 @@
+server:
+  port: 8081
+  shutdown: graceful
+spring:
+  application:
+    name: Rate Analyzer
+    version: 0.0.1
+  config:
+    import: optional:file:.env[.properties]
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        default_schema: analyzer
+    open-in-view: false
+  liquibase:
+    default-schema: analyzer
+    change-log: classpath:db/liquibase-changelog.xml
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/postgres
+logging:
+  level:
+    com.pdp.rateanalyzer: ${LOG_LEVEL}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, prometheus
+  endpoint:
+    health:
+      show-details: always
