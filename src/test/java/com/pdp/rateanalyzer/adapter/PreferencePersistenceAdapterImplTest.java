@@ -1,0 +1,60 @@
+package com.pdp.rateanalyzer.adapter;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import com.pdp.rateanalyzer.adapter.repository.PreferenceRepository;
+import com.pdp.rateanalyzer.domain.Preference;
+import com.pdp.rateanalyzer.extensions.FakePreference;
+import java.util.List;
+import java.util.UUID;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+@ExtendWith(MockitoExtension.class)
+class PreferencePersistenceAdapterImplTest {
+
+  @Mock
+  private PreferenceRepository repository;
+  @InjectMocks
+  private PreferencePersistenceAdapterImpl adapter;
+
+  @Test
+  @ExtendWith(FakePreference.class)
+  void shouldSaveNewPreferences(Preference expected) {
+    // given
+    when(repository.save(expected)).thenReturn(expected);
+
+    // when
+    Preference actual = adapter.save(expected);
+
+    // then
+    assertNotNull(actual);
+    assertEquals(expected, actual);
+    verify(repository).save(any());
+  }
+
+  @Test
+  @ExtendWith(FakePreference.class)
+  void shouldGetAllPreferencesByUser(Preference expected) {
+    // given
+    UUID user = UUID.randomUUID();
+    when(repository.findAllByUserId(user)).thenReturn(List.of(expected));
+
+    // when
+    List<Preference> actual = adapter.getAllByUser(user);
+
+    // then
+    assertNotNull(actual);
+    assertEquals(1, actual.size());
+    assertEquals(expected, actual.get(0));
+    verify(repository).findAllByUserId(user);
+  }
+
+}
