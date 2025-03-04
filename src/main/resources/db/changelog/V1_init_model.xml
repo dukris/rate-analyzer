@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
+
+  <changeSet id="0" author="Hanna">
+    <preConditions onFail="MARK_RAN">
+      <not>
+        <tableExists tableName="preferences" schemaName="analyzer"/>
+      </not>
+    </preConditions>
+    <createTable tableName="preferences" schemaName="analyzer">
+      <column name="id" type="UUID">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="user_id" type="UUID">
+        <constraints nullable="false"/>
+      </column>
+      <column name="currency_id" type="UUID">
+        <constraints nullable="false"/>
+      </column>
+      <column name="rate" type="DECIMAL(20,10)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="date" type="TIMESTAMP">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+</databaseChangeLog>
