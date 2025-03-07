@@ -28,7 +28,7 @@ public interface SendRateNotificationUseCase {
     private BigDecimal rate;
   }
 
-  @Mapper
+  @Mapper(componentModel = "spring")
   interface NotificationDataMapper {
 
     NotificationData toData(Preference preference);
