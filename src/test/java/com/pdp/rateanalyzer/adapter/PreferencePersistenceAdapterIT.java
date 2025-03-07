@@ -23,7 +23,7 @@ class PreferencePersistenceAdapterIT extends IntegrationTest implements Postgres
     // given
     Preference expected = new Preference();
     expected.setUserId(UUID.randomUUID());
-    expected.setCurrencyId(UUID.randomUUID());
+    expected.setCurrency("USDT");
     expected.setRate(new BigDecimal("1.0000000000"));
 
     // when
@@ -31,7 +31,7 @@ class PreferencePersistenceAdapterIT extends IntegrationTest implements Postgres
 
     // then
     assertNotNull(actual);
-    assertEquals(expected.getCurrencyId(), actual.getCurrencyId());
+    assertEquals(expected.getCurrency(), actual.getCurrency());
     assertEquals(expected.getRate(), actual.getRate());
     assertEquals(expected.getUserId(), actual.getUserId());
   }
@@ -43,7 +43,7 @@ class PreferencePersistenceAdapterIT extends IntegrationTest implements Postgres
     UUID user = UUID.fromString("967a7ce6-2b47-4a9f-bde1-78401509e82d");
     Preference expected = new Preference();
     expected.setUserId(user);
-    expected.setCurrencyId( UUID.fromString("867a7ce6-2b47-4a9f-bde1-78401509e82d"));
+    expected.setCurrency("USDT");
     expected.setRate(new BigDecimal("1.0000000000"));
 
     // when
@@ -52,7 +52,7 @@ class PreferencePersistenceAdapterIT extends IntegrationTest implements Postgres
     // then
     assertNotNull(actual);
     assertEquals(1, actual.size());
-    assertEquals(expected.getCurrencyId(), actual.get(0).getCurrencyId());
+    assertEquals(expected.getCurrency(), actual.get(0).getCurrency());
     assertEquals(expected.getRate(), actual.get(0).getRate());
     assertEquals(expected.getUserId(), actual.get(0).getUserId());
   }

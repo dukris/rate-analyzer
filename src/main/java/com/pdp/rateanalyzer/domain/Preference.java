@@ -28,8 +28,8 @@ public class Preference {
   @Column(nullable = false)
   private UUID userId;
 
-  @Column(nullable = false)
-  private UUID currencyId;
+  @Column(nullable = false, length = 20)
+  private String currency;
 
   @Column(nullable = false)
   private BigDecimal rate;
