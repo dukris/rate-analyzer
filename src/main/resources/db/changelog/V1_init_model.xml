@@ -18,7 +18,7 @@
       <column name="user_id" type="UUID">
         <constraints nullable="false"/>
       </column>
-      <column name="currency_id" type="UUID">
+      <column name="currency" type="VARCHAR(20)">
         <constraints nullable="false"/>
       </column>
       <column name="rate" type="DECIMAL(20,10)">
@@ -28,5 +28,11 @@
         <constraints nullable="false"/>
       </column>
     </createTable>
+
+    <addUniqueConstraint
+      tableName="preferences"
+      schemaName="analyzer"
+      columnNames="user_id, currency"
+      constraintName="uq_user_currency"/>
   </changeSet>
 </databaseChangeLog>
