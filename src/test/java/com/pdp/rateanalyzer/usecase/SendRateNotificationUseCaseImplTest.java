@@ -5,14 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.pdp.rateanalyzer.extensions.FakeNotificationData;
+import com.pdp.rateanalyzer.domain.Notification;
+import com.pdp.rateanalyzer.domain.mapper.NotificationMapper;
+import com.pdp.rateanalyzer.extensions.FakeNotification;
 import com.pdp.rateanalyzer.extensions.FakeSendNotificationPayload;
 import com.pdp.rateanalyzer.messaging.MessageSender;
 import com.pdp.rateanalyzer.messaging.command.Message;
 import com.pdp.rateanalyzer.messaging.command.SendNotificationCommand;
 import com.pdp.rateanalyzer.messaging.command.SendNotificationPayload;
-import com.pdp.rateanalyzer.usecase.SendRateNotificationUseCase.NotificationData;
-import com.pdp.rateanalyzer.usecase.SendRateNotificationUseCase.NotificationDataMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -27,7 +27,7 @@ class SendRateNotificationUseCaseImplTest {
   @Mock
   private MessageSender sender;
   @Mock
-  private NotificationDataMapper mapper;
+  private NotificationMapper mapper;
   @InjectMocks
   private SendRateNotificationUseCaseImpl useCase;
 
@@ -35,8 +35,8 @@ class SendRateNotificationUseCaseImplTest {
   private ArgumentCaptor<Message> captor;
 
   @Test
-  @ExtendWith({FakeNotificationData.class, FakeSendNotificationPayload.class})
-  void shouldSendMessage(NotificationData data, SendNotificationPayload payload) {
+  @ExtendWith({FakeNotification.class, FakeSendNotificationPayload.class})
+  void shouldSendMessage(Notification data, SendNotificationPayload payload) {
     // given
     when(mapper.toPayload(data)).thenReturn(payload);
 
