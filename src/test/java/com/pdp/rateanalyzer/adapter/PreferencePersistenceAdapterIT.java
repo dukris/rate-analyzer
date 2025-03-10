@@ -3,7 +3,7 @@ package com.pdp.rateanalyzer.adapter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import com.pdp.rateanalyzer.domain.Preference;
+import com.pdp.rateanalyzer.domain.PreferenceEntity;
 import integration.IntegrationTest;
 import integration.PostgresIntegration;
 import java.math.BigDecimal;
@@ -21,13 +21,13 @@ class PreferencePersistenceAdapterIT extends IntegrationTest implements Postgres
   @Test
   void shouldSavePreference() {
     // given
-    Preference expected = new Preference();
+    PreferenceEntity expected = new PreferenceEntity();
     expected.setUserId(UUID.randomUUID());
     expected.setCurrency("USDT");
     expected.setRate(new BigDecimal("1.0000000000"));
 
     // when
-    Preference actual = adapter.save(expected);
+    PreferenceEntity actual = adapter.save(expected);
 
     // then
     assertNotNull(actual);
@@ -41,13 +41,13 @@ class PreferencePersistenceAdapterIT extends IntegrationTest implements Postgres
   void shouldReturnPreferencesByUser() {
     // given
     UUID user = UUID.fromString("967a7ce6-2b47-4a9f-bde1-78401509e82d");
-    Preference expected = new Preference();
+    PreferenceEntity expected = new PreferenceEntity();
     expected.setUserId(user);
     expected.setCurrency("USDT");
     expected.setRate(new BigDecimal("1.0000000000"));
 
     // when
-    List<Preference> actual = adapter.getAllByUser(user);
+    List<PreferenceEntity> actual = adapter.getAllByUser(user);
 
     // then
     assertNotNull(actual);

@@ -27,6 +27,15 @@ spring:
     producer:
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
+  cloud:
+    openfeign:
+      client:
+        config:
+          currency:
+            url: ${CURRENCY_FETCHER_URL}
+            connectTimeout: 5000
+            readTimeout: 5000
+            loggerLevel: full
 logging:
   level:
     com.pdp.rateanalyzer: ${LOG_LEVEL}

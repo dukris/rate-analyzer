@@ -1,6 +1,6 @@
 package com.pdp.rateanalyzer.adapter;
 
-import com.pdp.rateanalyzer.domain.Preference;
+import com.pdp.rateanalyzer.domain.PreferenceEntity;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,7 +12,7 @@ public interface PreferencePersistenceAdapter {
    * @param user User id
    * @return List of preferences
    */
-  List<Preference> getAllByUser(UUID user);
+  List<PreferenceEntity> getAllByUser(UUID user);
 
   /**
    * Saves preference
@@ -20,6 +20,6 @@ public interface PreferencePersistenceAdapter {
    * @param preference User's preference
    * @return Saved preference
    */
-  Preference save(Preference preference);
+  PreferenceEntity save(PreferenceEntity preference);
 
 }
