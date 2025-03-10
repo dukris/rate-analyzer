@@ -1,6 +1,6 @@
 package com.pdp.rateanalyzer.usecase;
 
-import com.pdp.rateanalyzer.domain.Preference;
+import com.pdp.rateanalyzer.domain.PreferenceEntity;
 import com.pdp.rateanalyzer.messaging.command.SendNotificationPayload;
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -31,7 +31,7 @@ public interface SendRateNotificationUseCase {
   @Mapper(componentModel = "spring")
   interface NotificationDataMapper {
 
-    NotificationData toData(Preference preference);
+    NotificationData toData(PreferenceEntity preference);
 
     SendNotificationPayload toPayload(NotificationData data);
   }

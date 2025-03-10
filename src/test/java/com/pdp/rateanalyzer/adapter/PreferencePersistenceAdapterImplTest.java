@@ -7,8 +7,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.pdp.rateanalyzer.adapter.repository.PreferenceRepository;
-import com.pdp.rateanalyzer.domain.Preference;
-import com.pdp.rateanalyzer.extensions.FakePreference;
+import com.pdp.rateanalyzer.domain.PreferenceEntity;
+import com.pdp.rateanalyzer.extensions.FakePreferenceEntity;
 import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
@@ -26,13 +26,13 @@ class PreferencePersistenceAdapterImplTest {
   private PreferencePersistenceAdapterImpl adapter;
 
   @Test
-  @ExtendWith(FakePreference.class)
-  void shouldSaveNewPreferences(Preference expected) {
+  @ExtendWith(FakePreferenceEntity.class)
+  void shouldSaveNewPreferences(PreferenceEntity expected) {
     // given
     when(repository.save(expected)).thenReturn(expected);
 
     // when
-    Preference actual = adapter.save(expected);
+    PreferenceEntity actual = adapter.save(expected);
 
     // then
     assertNotNull(actual);
@@ -41,14 +41,14 @@ class PreferencePersistenceAdapterImplTest {
   }
 
   @Test
-  @ExtendWith(FakePreference.class)
-  void shouldGetAllPreferencesByUser(Preference expected) {
+  @ExtendWith(FakePreferenceEntity.class)
+  void shouldGetAllPreferencesByUser(PreferenceEntity expected) {
     // given
     UUID user = UUID.randomUUID();
     when(repository.findAllByUserId(user)).thenReturn(List.of(expected));
 
     // when
-    List<Preference> actual = adapter.getAllByUser(user);
+    List<PreferenceEntity> actual = adapter.getAllByUser(user);
 
     // then
     assertNotNull(actual);

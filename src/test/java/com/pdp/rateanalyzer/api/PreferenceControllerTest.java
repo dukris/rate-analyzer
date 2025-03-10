@@ -10,10 +10,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pdp.rateanalyzer.adapter.PreferencePersistenceAdapter;
 import com.pdp.rateanalyzer.api.dto.CreatePreferenceDto;
 import com.pdp.rateanalyzer.api.dto.PreferenceDto;
-import com.pdp.rateanalyzer.domain.Preference;
+import com.pdp.rateanalyzer.domain.PreferenceEntity;
 import com.pdp.rateanalyzer.domain.mapper.PreferenceMapper;
 import com.pdp.rateanalyzer.extensions.FakeCreatePreferenceDto;
-import com.pdp.rateanalyzer.extensions.FakePreference;
+import com.pdp.rateanalyzer.extensions.FakePreferenceEntity;
 import com.pdp.rateanalyzer.extensions.FakePreferenceDto;
 import java.util.List;
 import java.util.UUID;
@@ -41,8 +41,8 @@ class PreferenceControllerTest {
   private PreferenceMapper mapper;
 
   @Test
-  @ExtendWith({FakePreference.class, FakePreferenceDto.class})
-  void shouldReturnPreferencesByUser(Preference preference, PreferenceDto response) throws Exception {
+  @ExtendWith({FakePreferenceEntity.class, FakePreferenceDto.class})
+  void shouldReturnPreferencesByUser(PreferenceEntity preference, PreferenceDto response) throws Exception {
     // given
     UUID user = UUID.randomUUID();
     when(adapter.getAllByUser(user)).thenReturn(List.of(preference));
@@ -59,8 +59,8 @@ class PreferenceControllerTest {
   }
 
   @Test
-  @ExtendWith({FakePreference.class, FakeCreatePreferenceDto.class, FakePreferenceDto.class})
-  void shouldSavePreferences(Preference preference, CreatePreferenceDto request, PreferenceDto response) throws Exception {
+  @ExtendWith({FakePreferenceEntity.class, FakeCreatePreferenceDto.class, FakePreferenceDto.class})
+  void shouldSavePreferences(PreferenceEntity preference, CreatePreferenceDto request, PreferenceDto response) throws Exception {
     // given
     when(mapper.toEntity(request)).thenReturn(preference);
     when(adapter.save(preference)).thenReturn(preference);

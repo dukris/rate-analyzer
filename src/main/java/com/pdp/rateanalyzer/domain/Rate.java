@@ -1,21 +1,17 @@
 package com.pdp.rateanalyzer.domain;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class Preference {
+@NoArgsConstructor
+public class Rate {
 
   private UUID id;
-  private UUID userId;
   private String currency;
-  private BigDecimal rate;
-  private LocalDateTime date;
-
+  private BigDecimal value;
 }
