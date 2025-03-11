@@ -1,5 +1,6 @@
-package com.pdp.rateanalyzer.adapter;
+package com.pdp.rateanalyzer.adapter.impl;
 
+import com.pdp.rateanalyzer.adapter.PreferencePersistenceAdapter;
 import com.pdp.rateanalyzer.adapter.repository.PreferenceRepository;
 import com.pdp.rateanalyzer.domain.PreferenceEntity;
 import java.util.List;

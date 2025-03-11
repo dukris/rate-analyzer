@@ -1,7 +1,8 @@
-package com.pdp.rateanalyzer.usecase;
+package com.pdp.rateanalyzer.usecase.impl;
 
 import com.pdp.rateanalyzer.api.dto.PollingResponseDto;
 import com.pdp.rateanalyzer.gateway.CurrencyGateway;
+import com.pdp.rateanalyzer.usecase.ScheduleAnalysisUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package com.pdp.rateanalyzer.gateway;
+package com.pdp.rateanalyzer.gateway.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

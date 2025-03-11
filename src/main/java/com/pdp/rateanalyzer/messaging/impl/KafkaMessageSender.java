@@ -1,5 +1,6 @@
-package com.pdp.rateanalyzer.messaging;
+package com.pdp.rateanalyzer.messaging.impl;
 
+import com.pdp.rateanalyzer.messaging.MessageSender;
 import com.pdp.rateanalyzer.messaging.command.Message;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;

@@ -1,6 +1,7 @@
-package com.pdp.rateanalyzer.gateway;
+package com.pdp.rateanalyzer.gateway.impl;
 
 import com.pdp.rateanalyzer.api.dto.PollingResponseDto;
+import com.pdp.rateanalyzer.gateway.CurrencyGateway;
 import com.pdp.rateanalyzer.gateway.client.CurrencyFetcherClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
