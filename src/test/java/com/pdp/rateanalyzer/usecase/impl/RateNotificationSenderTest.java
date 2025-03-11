@@ -29,7 +29,7 @@ class RateNotificationSenderTest {
   @Mock
   private NotificationMapper mapper;
   @InjectMocks
-  private RateNotificationSender useCase;
+  private RateNotificationSender rateNotificationSender;
 
   @Captor
   private ArgumentCaptor<Message> captor;
@@ -41,7 +41,7 @@ class RateNotificationSenderTest {
     when(mapper.toPayload(data)).thenReturn(payload);
 
     // when
-    useCase.send(data);
+    rateNotificationSender.send(data);
 
     // then
     verify(sender).send(captor.capture());
