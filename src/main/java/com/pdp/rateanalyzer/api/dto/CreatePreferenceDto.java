@@ -1,6 +1,7 @@
 package com.pdp.rateanalyzer.api.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -17,9 +18,9 @@ public class CreatePreferenceDto {
   @NotNull(message = "User id can't be empty")
   private UUID userId;
 
-  @Schema(name = "Unique identifier of the currency")
-  @NotNull(message = "Currency id can't be empty")
-  private UUID currencyId;
+  @Schema(name = "Currency name")
+  @NotBlank(message = "Currency can't be empty")
+  private String currency;
 
   @Schema(name = "Expected rate")
   @NotNull(message = "Rate can't be empty")

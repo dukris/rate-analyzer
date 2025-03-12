@@ -18,8 +18,8 @@ public class PreferenceDto {
   @Schema(name = "Unique identifier of the user")
   private UUID userId;
 
-  @Schema(name = "Unique identifier of the currency")
-  private UUID currencyId;
+  @Schema(name = "Currency name")
+  private String currency;
 
   @Schema(name = "Expected rate")
   private BigDecimal rate;
