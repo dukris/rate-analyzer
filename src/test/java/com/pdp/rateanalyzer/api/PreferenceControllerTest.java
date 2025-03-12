@@ -54,7 +54,7 @@ class PreferenceControllerTest {
         ).andExpect(status().isOk())
         .andExpect(jsonPath("$.length()").value(1))
         .andExpect(jsonPath("$[0].userId").value(response.getUserId().toString()))
-        .andExpect(jsonPath("$[0].currencyId").value(response.getCurrencyId().toString()))
+        .andExpect(jsonPath("$[0].currency").value(response.getCurrency()))
         .andExpect(jsonPath("$[0].rate").value(response.getRate()));
   }
 
@@ -72,7 +72,7 @@ class PreferenceControllerTest {
             .content(objectMapper.writeValueAsString(request))
         ).andExpect(status().isCreated())
         .andExpect(jsonPath("$.userId").value(response.getUserId().toString()))
-        .andExpect(jsonPath("$.currencyId").value(response.getCurrencyId().toString()))
+        .andExpect(jsonPath("$.currency").value(response.getCurrency()))
         .andExpect(jsonPath("$.rate").value(response.getRate()));
   }
 
