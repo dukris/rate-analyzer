@@ -19,7 +19,7 @@ public class CurrencyGatewayImpl implements CurrencyGateway {
     ResponseEntity<PollingResponseDto> response = client.poll(version, timeout);
     return HttpStatus.OK.equals(response.getStatusCode())
         ? response.getBody()
-        : PollingResponseDto.builder().version(version).build();
+        : new PollingResponseDto();
   }
 
 }

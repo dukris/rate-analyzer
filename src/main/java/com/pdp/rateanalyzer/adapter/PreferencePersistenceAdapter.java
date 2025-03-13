@@ -23,7 +23,7 @@ public interface PreferencePersistenceAdapter {
   List<PreferenceEntity> getAllByUser(UUID user);
 
   /**
-   * Saves preference
+   * Saves preference.
    *
    * @param preference User's preference
    * @return Saved preference
