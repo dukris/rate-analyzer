@@ -1,6 +1,7 @@
-package com.pdp.rateanalyzer.gateway;
+package com.pdp.rateanalyzer.gateway.impl;
 
 import com.pdp.rateanalyzer.api.dto.PollingResponseDto;
+import com.pdp.rateanalyzer.gateway.CurrencyGateway;
 import com.pdp.rateanalyzer.gateway.client.CurrencyFetcherClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ public class CurrencyGatewayImpl implements CurrencyGateway {
     ResponseEntity<PollingResponseDto> response = client.poll(version, timeout);
     return HttpStatus.OK.equals(response.getStatusCode())
         ? response.getBody()
-        : PollingResponseDto.builder().version(version).build();
+        : new PollingResponseDto();
   }
 
 }

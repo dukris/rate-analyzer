@@ -21,10 +21,8 @@ public class FakePollingResponseDto implements ParameterResolver {
   @Override
   public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext)
       throws ParameterResolutionException {
-    return PollingResponseDto.builder()
-        .version(1L)
-        .rates(List.of(new RateDto(UUID.randomUUID(), "USDT", new BigDecimal(1))))
-        .build();
+    return new PollingResponseDto(1L, List.of(new RateDto(UUID.randomUUID(), "USDT", new BigDecimal(1))));
+
   }
 
 }

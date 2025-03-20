@@ -1,4 +1,4 @@
-package com.pdp.rateanalyzer.messaging;
+package com.pdp.rateanalyzer.messaging.impl;
 
 import static org.mockito.Mockito.verify;
 

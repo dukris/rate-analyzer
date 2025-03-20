@@ -1,19 +1,28 @@
-package com.pdp.rateanalyzer.adapter;
+package com.pdp.rateanalyzer.adapter.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import com.pdp.rateanalyzer.adapter.PreferencePersistenceAdapter;
 import com.pdp.rateanalyzer.domain.PreferenceEntity;
 import integration.IntegrationTest;
 import integration.PostgresIntegration;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 
 class PreferencePersistenceAdapterIT extends IntegrationTest implements PostgresIntegration {
+
+  private final PreferenceEntity expected = PreferenceEntity.builder()
+      .userId(UUID.fromString("967a7ce6-2b47-4a9f-bde1-78401509e82d"))
+      .currency("USDT")
+      .rate(new BigDecimal("1.0000000000"))
+      .build();
 
   @Autowired
   private PreferencePersistenceAdapter adapter;
@@ -21,10 +30,7 @@ class PreferencePersistenceAdapterIT extends IntegrationTest implements Postgres
   @Test
   void shouldSavePreference() {
     // given
-    PreferenceEntity expected = new PreferenceEntity();
-    expected.setUserId(UUID.randomUUID());
-    expected.setCurrency("USDT");
-    expected.setRate(new BigDecimal("1.0000000000"));
+    expected.setCurrency("BTC");
 
     // when
     PreferenceEntity actual = adapter.save(expected);
@@ -40,14 +46,9 @@ class PreferencePersistenceAdapterIT extends IntegrationTest implements Postgres
   @Sql(scripts = {"classpath:sql/insert-preference.sql"})
   void shouldReturnPreferencesByUser() {
     // given
-    UUID user = UUID.fromString("967a7ce6-2b47-4a9f-bde1-78401509e82d");
-    PreferenceEntity expected = new PreferenceEntity();
-    expected.setUserId(user);
-    expected.setCurrency("USDT");
-    expected.setRate(new BigDecimal("1.0000000000"));
 
     // when
-    List<PreferenceEntity> actual = adapter.getAllByUser(user);
+    List<PreferenceEntity> actual = adapter.getAllByUser(expected.getUserId());
 
     // then
     assertNotNull(actual);
@@ -55,6 +56,22 @@ class PreferencePersistenceAdapterIT extends IntegrationTest implements Postgres
     assertEquals(expected.getCurrency(), actual.get(0).getCurrency());
     assertEquals(expected.getRate(), actual.get(0).getRate());
     assertEquals(expected.getUserId(), actual.get(0).getUserId());
+  }
+
+  @Test
+  @Transactional
+  @Sql(scripts = {"classpath:sql/insert-preference.sql"})
+  void shouldReturnAllPreferences() {
+    // given
+
+    // when
+    Stream<PreferenceEntity> actual = adapter.getAll();
+
+    // then
+    assertNotNull(actual);
+    PreferenceEntity entity = actual.findFirst().get();
+    assertEquals(expected.getCurrency(), entity.getCurrency());
+    assertEquals(expected.getRate(), entity.getRate());
   }
 
 }

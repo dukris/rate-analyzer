@@ -19,7 +19,7 @@ public class FakeCreatePreferenceDto implements ParameterResolver {
   @Override
   public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext)
       throws ParameterResolutionException {
-    return new CreatePreferenceDto(UUID.randomUUID(), UUID.randomUUID(), new BigDecimal(1));
+    return new CreatePreferenceDto(UUID.randomUUID(), "USDT", new BigDecimal(1));
   }
 
 }

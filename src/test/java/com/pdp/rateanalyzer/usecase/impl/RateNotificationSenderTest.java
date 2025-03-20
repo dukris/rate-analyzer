@@ -1,4 +1,4 @@
-package com.pdp.rateanalyzer.usecase;
+package com.pdp.rateanalyzer.usecase.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -22,14 +22,14 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class SendRateNotificationUseCaseImplTest {
+class RateNotificationSenderTest {
 
   @Mock
   private MessageSender sender;
   @Mock
   private NotificationMapper mapper;
   @InjectMocks
-  private SendRateNotificationUseCaseImpl useCase;
+  private RateNotificationSender rateNotificationSender;
 
   @Captor
   private ArgumentCaptor<Message> captor;
@@ -41,7 +41,7 @@ class SendRateNotificationUseCaseImplTest {
     when(mapper.toPayload(data)).thenReturn(payload);
 
     // when
-    useCase.send(data);
+    rateNotificationSender.send(data);
 
     // then
     verify(sender).send(captor.capture());

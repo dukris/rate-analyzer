@@ -1,4 +1,4 @@
-package com.pdp.rateanalyzer.adapter;
+package com.pdp.rateanalyzer.adapter.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -11,6 +11,7 @@ import com.pdp.rateanalyzer.domain.PreferenceEntity;
 import com.pdp.rateanalyzer.extensions.FakePreferenceEntity;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -55,6 +56,22 @@ class PreferencePersistenceAdapterImplTest {
     assertEquals(1, actual.size());
     assertEquals(expected, actual.get(0));
     verify(repository).findAllByUserId(user);
+  }
+
+  @Test
+  @ExtendWith(FakePreferenceEntity.class)
+  void shouldStreamAllPreferences(PreferenceEntity expected) {
+    // given
+    when(repository.streamAllBy()).thenReturn(Stream.<PreferenceEntity>builder().add(expected).build());
+
+    // when
+    List<PreferenceEntity> actual = adapter.getAll().toList();
+
+    // then
+    assertNotNull(actual);
+    assertEquals(1, actual.size());
+    assertEquals(expected, actual.get(0));
+    verify(repository).streamAllBy();
   }
 
 }
