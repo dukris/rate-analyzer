@@ -34,13 +34,10 @@ class RateAnalyzerTest {
 
   @Mock
   private ExecutorService executor;
-
   @Mock
   private SendRateNotificationUseCase sender;
-
   @Mock
   private PreferencePersistenceAdapter preferencePersistenceAdapter;
-
   @InjectMocks
   private RatesAnalyzer ratesAnalyzer;
 
