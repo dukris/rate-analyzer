@@ -20,10 +20,9 @@ public class AnalyticalScheduler implements ScheduleAnalysisUseCase {
   private final AnalyzeRatesUseCase analyzer;
   private final RateMapper rateMapper;
 
-  // todo add tests
   @Async
   @Override
-//  @Scheduled(cron = "* * * * * *")
+  @Scheduled(cron = "* * * * * *")
   @Scheduled(fixedRate = 500000000)
   public void schedule() {
     PollingResponseDto response = currencyGateway.poll(versionPersistenceAdapter.current(), 1L);
