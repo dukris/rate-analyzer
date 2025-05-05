@@ -1,7 +1,7 @@
 package com.pdp.rateanalyzer.usecase.impl;
 
 import com.pdp.rateanalyzer.adapter.PreferencePersistenceAdapter;
-import com.pdp.rateanalyzer.domain.Notification;
+import com.pdp.rateanalyzer.domain.RateNotification;
 import com.pdp.rateanalyzer.domain.Rate;
 import com.pdp.rateanalyzer.usecase.AnalyzeRatesUseCase;
 import com.pdp.rateanalyzer.usecase.SendRateNotificationUseCase;
@@ -31,7 +31,7 @@ public class RatesAnalyzer implements AnalyzeRatesUseCase {
         .map(preference -> CompletableFuture.runAsync(() -> {
               Rate rate = ratesByCurrency.get(preference.getCurrency());
               if (rate != null && rate.getValue().compareTo(preference.getRate()) >= 0) {
-                sender.send(new Notification(preference.getUserId(), preference.getCurrency(), rate.getValue()));
+                sender.send(new RateNotification(preference.getUserId(), preference.getCurrency(), rate.getValue()));
               }
             }, executor)
         ).toList();

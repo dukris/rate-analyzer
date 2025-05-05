@@ -1,6 +1,6 @@
 package com.pdp.rateanalyzer.usecase;
 
-import com.pdp.rateanalyzer.domain.Notification;
+import com.pdp.rateanalyzer.domain.RateNotification;
 
 public interface SendRateNotificationUseCase {
 
@@ -9,6 +9,6 @@ public interface SendRateNotificationUseCase {
    *
    * @param notification Notification data
    */
-  void send(Notification notification);
+  void send(RateNotification notification);
 
 }

@@ -1,7 +1,7 @@
 package com.pdp.rateanalyzer.usecase.impl;
 
 import com.pdp.rateanalyzer.adapter.PreferencePersistenceAdapter;
-import com.pdp.rateanalyzer.domain.Notification;
+import com.pdp.rateanalyzer.domain.RateNotification;
 import com.pdp.rateanalyzer.domain.Preference;
 import com.pdp.rateanalyzer.domain.Rate;
 import com.pdp.rateanalyzer.extensions.FakePreference;
@@ -39,7 +39,7 @@ class RateAnalyzerTest {
   private RatesAnalyzer ratesAnalyzer;
 
   @Captor
-  private ArgumentCaptor<Notification> captor;
+  private ArgumentCaptor<RateNotification> captor;
 
   @BeforeEach
   void setUp() {
@@ -61,7 +61,7 @@ class RateAnalyzerTest {
 
     // then
     verify(sender, timeout(1000)).send(captor.capture());
-    Notification notification = captor.getValue();
+    RateNotification notification = captor.getValue();
     assertNotNull(notification);
     assertEquals(preference.getCurrency(), notification.getCurrency());
     assertEquals(preference.getRate(), notification.getRate());

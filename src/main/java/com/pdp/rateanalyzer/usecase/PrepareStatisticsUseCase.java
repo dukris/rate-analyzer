@@ -1,6 +1,6 @@
 package com.pdp.rateanalyzer.usecase;
 
-import com.pdp.rateanalyzer.domain.Statistics;
+import com.pdp.rateanalyzer.domain.WeeklyStatistics;
 import java.util.List;
 import java.util.UUID;
 
@@ -11,6 +11,6 @@ public interface PrepareStatisticsUseCase {
    *
    * @param userId User id
    */
-  List<Statistics> prepare(UUID userId);
+  List<WeeklyStatistics> prepare(UUID userId);
 
 }

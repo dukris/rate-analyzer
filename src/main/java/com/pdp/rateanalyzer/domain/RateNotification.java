@@ -1,18 +1,19 @@
 package com.pdp.rateanalyzer.domain;
 
-import java.math.BigDecimal;
-import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+import java.util.UUID;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Notification {
+public class RateNotification {
 
-  private UUID userId;
-  private String currency;
-  private BigDecimal rate;
+    private UUID userId;
+    private String currency;
+    private BigDecimal rate;
 
 }
