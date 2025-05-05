@@ -5,14 +5,14 @@ import com.pdp.rateanalyzer.domain.Notification;
 import com.pdp.rateanalyzer.domain.Rate;
 import com.pdp.rateanalyzer.usecase.AnalyzeRatesUseCase;
 import com.pdp.rateanalyzer.usecase.SendRateNotificationUseCase;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.stream.Collectors;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -23,7 +23,6 @@ public class RatesAnalyzer implements AnalyzeRatesUseCase {
   private final PreferencePersistenceAdapter preferencePersistenceAdapter;
 
   @Override
-  @Transactional
   public void analyze(List<Rate> rates) {
     Map<String, Rate> ratesByCurrency = rates.stream()
         .collect(Collectors.toMap(Rate::getCurrency, rate -> rate));

@@ -1,6 +1,7 @@
 package com.pdp.rateanalyzer.adapter;
 
-import com.pdp.rateanalyzer.domain.PreferenceEntity;
+import com.pdp.rateanalyzer.domain.Preference;
+
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
@@ -12,7 +13,7 @@ public interface PreferencePersistenceAdapter {
    *
    * @return Stream of preferences
    */
-  Stream<PreferenceEntity> getAll();
+  Stream<Preference> getAll();
 
   /**
    * Retrieves preferences for user.
@@ -20,7 +21,7 @@ public interface PreferencePersistenceAdapter {
    * @param user User id
    * @return List of preferences
    */
-  List<PreferenceEntity> getAllByUser(UUID user);
+  List<Preference> getAllByUser(UUID user);
 
   /**
    * Saves preference.
@@ -28,6 +29,6 @@ public interface PreferencePersistenceAdapter {
    * @param preference User's preference
    * @return Saved preference
    */
-  PreferenceEntity save(PreferenceEntity preference);
+  Preference save(Preference preference);
 
 }

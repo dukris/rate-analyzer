@@ -11,25 +11,26 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import static java.util.Objects.isNull;
+
 @Component
 @RequiredArgsConstructor
 public class AnalyticalScheduler implements ScheduleAnalysisUseCase {
 
-  private final CurrencyGateway currencyGateway;
-  private final VersionPersistenceAdapter versionPersistenceAdapter;
-  private final AnalyzeRatesUseCase analyzer;
-  private final RateMapper rateMapper;
+    private final CurrencyGateway currencyGateway;
+    private final VersionPersistenceAdapter versionPersistenceAdapter;
+    private final AnalyzeRatesUseCase analyzer;
+    private final RateMapper rateMapper;
 
-  @Async
-  @Override
-  @Scheduled(cron = "* * * * * *")
-  @Scheduled(fixedRate = 500000000)
-  public void schedule() {
-    PollingResponseDto response = currencyGateway.poll(versionPersistenceAdapter.current(), 1L);
-    if (response.getVersion() != null) {
-      versionPersistenceAdapter.update(response.getVersion());
+    @Async
+    @Override
+    @Scheduled(cron = "* * * * * *")
+    public void schedule() {
+        PollingResponseDto response = currencyGateway.poll(versionPersistenceAdapter.current(), 1L);
+        if (!isNull(response.getVersion())) {
+            versionPersistenceAdapter.update(response.getVersion());
+        }
+        analyzer.analyze(rateMapper.toModel(response.getRates()));
     }
-    analyzer.analyze(rateMapper.toDomain(response.getRates()));
-  }
 
 }

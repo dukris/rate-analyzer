@@ -1,22 +1,14 @@
 package com.pdp.rateanalyzer.api;
 
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pdp.rateanalyzer.adapter.PreferencePersistenceAdapter;
 import com.pdp.rateanalyzer.api.dto.CreatePreferenceDto;
 import com.pdp.rateanalyzer.api.dto.PreferenceDto;
-import com.pdp.rateanalyzer.domain.PreferenceEntity;
+import com.pdp.rateanalyzer.domain.Preference;
 import com.pdp.rateanalyzer.domain.mapper.PreferenceMapper;
 import com.pdp.rateanalyzer.extensions.FakeCreatePreferenceDto;
-import com.pdp.rateanalyzer.extensions.FakePreferenceEntity;
+import com.pdp.rateanalyzer.extensions.FakePreference;
 import com.pdp.rateanalyzer.extensions.FakePreferenceDto;
-import java.util.List;
-import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +17,15 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.List;
+import java.util.UUID;
+
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ActiveProfiles("test")
 @WebMvcTest(controllers = PreferenceController.class)
@@ -41,8 +42,8 @@ class PreferenceControllerTest {
   private PreferenceMapper mapper;
 
   @Test
-  @ExtendWith({FakePreferenceEntity.class, FakePreferenceDto.class})
-  void shouldReturnPreferencesByUser(PreferenceEntity preference, PreferenceDto response) throws Exception {
+  @ExtendWith({FakePreference.class, FakePreferenceDto.class})
+  void shouldReturnPreferencesByUser(Preference preference, PreferenceDto response) throws Exception {
     // given
     UUID user = UUID.randomUUID();
     when(adapter.getAllByUser(user)).thenReturn(List.of(preference));
@@ -59,10 +60,10 @@ class PreferenceControllerTest {
   }
 
   @Test
-  @ExtendWith({FakePreferenceEntity.class, FakeCreatePreferenceDto.class, FakePreferenceDto.class})
-  void shouldSavePreferences(PreferenceEntity preference, CreatePreferenceDto request, PreferenceDto response) throws Exception {
+  @ExtendWith({FakePreference.class, FakeCreatePreferenceDto.class, FakePreferenceDto.class})
+  void shouldSavePreferences(Preference preference, CreatePreferenceDto request, PreferenceDto response) throws Exception {
     // given
-    when(mapper.toEntity(request)).thenReturn(preference);
+    when(mapper.toModel(request)).thenReturn(preference);
     when(adapter.save(preference)).thenReturn(preference);
     when(mapper.toDto(preference)).thenReturn(response);
 

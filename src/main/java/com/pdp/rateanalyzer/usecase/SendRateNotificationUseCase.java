@@ -7,8 +7,8 @@ public interface SendRateNotificationUseCase {
   /**
    * Sends notification to user about rates.
    *
-   * @param data Notification data
+   * @param notification Notification data
    */
-  void send(Notification data);
+  void send(Notification notification);
 
 }

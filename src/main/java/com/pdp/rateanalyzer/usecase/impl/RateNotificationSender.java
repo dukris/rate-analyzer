@@ -16,8 +16,8 @@ public class RateNotificationSender implements SendRateNotificationUseCase {
   private final NotificationMapper mapper;
 
   @Override
-  public void send(Notification data) {
-    sender.send(new SendNotificationCommand(mapper.toPayload(data)));
+  public void send(Notification notification) {
+    sender.send(new SendNotificationCommand(mapper.toPayload(notification)));
   }
 
 }

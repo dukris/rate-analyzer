@@ -1,6 +1,6 @@
 package com.pdp.rateanalyzer.adapter;
 
-import com.pdp.rateanalyzer.domain.VersionEntity;
+import com.pdp.rateanalyzer.domain.Version;
 
 public interface VersionPersistenceAdapter {
 
@@ -17,6 +17,6 @@ public interface VersionPersistenceAdapter {
    * @param value Version value
    * @return Saved version value
    */
-  VersionEntity update(long value);
+  Version update(long value);
 
 }
