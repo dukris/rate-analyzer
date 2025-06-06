@@ -1,5 +1,7 @@
 package com.pdp.rateanalyzer.usecase.impl;
 
+import static java.util.Objects.isNull;
+
 import com.pdp.rateanalyzer.adapter.VersionPersistenceAdapter;
 import com.pdp.rateanalyzer.api.dto.PollingResponseDto;
 import com.pdp.rateanalyzer.domain.mapper.RateMapper;
@@ -10,8 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import static java.util.Objects.isNull;
 
 @Component
 @RequiredArgsConstructor
@@ -24,7 +24,7 @@ public class AnalyticalScheduler implements ScheduleAnalysisUseCase {
 
     @Async
     @Override
-    @Scheduled(cron = "* * * * * *")
+    @Scheduled(cron = "* * * * * *") // todo shedlock
     public void schedule() {
         PollingResponseDto response = currencyGateway.poll(versionPersistenceAdapter.current(), 1L);
         if (!isNull(response.getVersion())) {

@@ -8,15 +8,14 @@ import com.pdp.rateanalyzer.domain.WeeklyStatistics;
 import com.pdp.rateanalyzer.domain.mapper.RateMapper;
 import com.pdp.rateanalyzer.gateway.CurrencyGateway;
 import com.pdp.rateanalyzer.usecase.PrepareStatisticsUseCase;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
@@ -41,7 +40,7 @@ public class StatisticsPreparer implements PrepareStatisticsUseCase { // todo un
         return statistics;
     }
 
-    // todo avoid private method
+    // todo avoid private methods
     private WeeklyStatistics calculateMetrics(Preference preference, List<Rate> rates) {
         BigDecimal highest = rates.stream().map(Rate::getValue).max(BigDecimal::compareTo).orElse(BigDecimal.ZERO);
         BigDecimal lowest = rates.stream().map(Rate::getValue).min(BigDecimal::compareTo).orElse(BigDecimal.ZERO);

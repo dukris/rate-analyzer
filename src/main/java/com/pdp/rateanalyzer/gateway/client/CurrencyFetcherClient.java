@@ -26,7 +26,7 @@ public interface CurrencyFetcherClient {
      *
      * @return List of currencies and rates
      */
-    @GetMapping("/api/v1/rates")
+    @GetMapping("/api/v1/rates/currencies")
     ResponseEntity<List<RateDto>> retrieveByPeriod(
         @RequestParam String currency,
         @RequestParam LocalDateTime from,
