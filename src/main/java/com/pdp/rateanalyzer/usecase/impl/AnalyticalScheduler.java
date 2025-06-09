@@ -18,21 +18,23 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class AnalyticalScheduler implements ScheduleAnalysisUseCase {
 
-    private final CurrencyGateway currencyGateway;
-    private final VersionPersistenceAdapter versionPersistenceAdapter;
-    private final AnalyzeRatesUseCase analyzer;
-    private final RateMapper rateMapper;
+  private final CurrencyGateway currencyGateway;
+  private final VersionPersistenceAdapter versionPersistenceAdapter;
+  private final AnalyzeRatesUseCase analyzer;
+  private final RateMapper rateMapper;
 
-    @Async
-    @Override
-    @Scheduled(cron = "* * * * * *")
-    @SchedulerLock(name = "calculateAnalyticsLock")
-    public void schedule() {
-        PollingResponseDto response = currencyGateway.poll(versionPersistenceAdapter.current(), 1L);
-        if (!isNull(response.getVersion())) {
-            versionPersistenceAdapter.update(response.getVersion());
-        }
-        analyzer.analyze(rateMapper.toModel(response.getRates()));
+  @Async
+  @Override
+  @Scheduled(cron = "* * * * * *")
+  @SchedulerLock(name = "calculateAnalyticsLock")
+  public void schedule() {
+    PollingResponseDto response = currencyGateway.poll(versionPersistenceAdapter.current(), 1L);
+    if (!isNull(response.getVersion())) {
+      versionPersistenceAdapter.update(response.getVersion());
     }
+    if (!isNull(response.getRates())) {
+      analyzer.analyze(rateMapper.toModel(response.getRates()));
+    }
+  }
 
 }

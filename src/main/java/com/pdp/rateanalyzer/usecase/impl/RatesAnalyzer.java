@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.stream.Collectors;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -23,6 +24,7 @@ public class RatesAnalyzer implements AnalyzeRatesUseCase {
   private final PreferencePersistenceAdapter preferencePersistenceAdapter;
 
   @Override
+  @Transactional(readOnly = true)
   public void analyze(List<Rate> rates) {
     Map<String, Rate> ratesByCurrency = rates.stream()
         .collect(Collectors.toMap(Rate::getCurrency, rate -> rate));
