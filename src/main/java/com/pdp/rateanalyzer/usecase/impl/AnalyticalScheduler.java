@@ -9,6 +9,7 @@ import com.pdp.rateanalyzer.gateway.CurrencyGateway;
 import com.pdp.rateanalyzer.usecase.AnalyzeRatesUseCase;
 import com.pdp.rateanalyzer.usecase.ScheduleAnalysisUseCase;
 import lombok.RequiredArgsConstructor;
+import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -24,7 +25,8 @@ public class AnalyticalScheduler implements ScheduleAnalysisUseCase {
 
     @Async
     @Override
-    @Scheduled(cron = "* * * * * *") // todo shedlock
+    @Scheduled(cron = "* * * * * *")
+    @SchedulerLock(name = "calculateAnalyticsLock")
     public void schedule() {
         PollingResponseDto response = currencyGateway.poll(versionPersistenceAdapter.current(), 1L);
         if (!isNull(response.getVersion())) {

@@ -9,6 +9,7 @@ import com.pdp.rateanalyzer.usecase.SendStatisticsNotificationUseCase;
 import java.time.LocalDateTime;
 import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
+import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -23,7 +24,8 @@ public class WeeklyStatisticsScheduler implements ScheduleWeeklyStatisticsUseCas
 
   @Async
   @Override
-  @Scheduled(cron = "0 0 9 ? * SUN") // todo shedlock
+  @Scheduled(cron = "0 0 9 ? * SUN")
+  @SchedulerLock(name = "calculateWeekReportsLock")
   public void schedule() {
     try (Stream<Preference> preferences = preferencePersistenceAdapter.getAll()) {
       preferences.map(Preference::getUserId)
