@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
-public class WeeklyStatisticsScheduler implements ScheduleWeeklyStatisticsUseCase { // todo unit tests
+public class WeeklyStatisticsScheduler implements ScheduleWeeklyStatisticsUseCase {
 
   private final PrepareStatisticsUseCase preparer;
   private final SendStatisticsNotificationUseCase sender;
