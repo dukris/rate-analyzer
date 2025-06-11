@@ -2,14 +2,15 @@ package com.pdp.rateanalyzer.domain.mapper;
 
 import com.pdp.rateanalyzer.api.dto.RateDto;
 import com.pdp.rateanalyzer.domain.Rate;
-import java.util.List;
 import org.mapstruct.Mapper;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface RateMapper {
 
-  Rate toDomain(RateDto dto);
+  Rate toModel(RateDto dto);
 
-  List<Rate> toDomain(List<RateDto> preferences);
+  List<Rate> toModel(List<RateDto> dtos);
 
 }

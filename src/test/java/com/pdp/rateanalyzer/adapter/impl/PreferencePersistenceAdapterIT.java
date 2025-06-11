@@ -1,24 +1,25 @@
 package com.pdp.rateanalyzer.adapter.impl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import com.pdp.rateanalyzer.adapter.PreferencePersistenceAdapter;
-import com.pdp.rateanalyzer.domain.PreferenceEntity;
+import com.pdp.rateanalyzer.domain.Preference;
 import integration.IntegrationTest;
 import integration.PostgresIntegration;
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 class PreferencePersistenceAdapterIT extends IntegrationTest implements PostgresIntegration {
 
-  private final PreferenceEntity expected = PreferenceEntity.builder()
+  private final Preference expected = Preference.builder()
       .userId(UUID.fromString("967a7ce6-2b47-4a9f-bde1-78401509e82d"))
       .currency("USDT")
       .rate(new BigDecimal("1.0000000000"))
@@ -33,7 +34,7 @@ class PreferencePersistenceAdapterIT extends IntegrationTest implements Postgres
     expected.setCurrency("BTC");
 
     // when
-    PreferenceEntity actual = adapter.save(expected);
+    Preference actual = adapter.save(expected);
 
     // then
     assertNotNull(actual);
@@ -48,7 +49,7 @@ class PreferencePersistenceAdapterIT extends IntegrationTest implements Postgres
     // given
 
     // when
-    List<PreferenceEntity> actual = adapter.getAllByUser(expected.getUserId());
+    List<Preference> actual = adapter.getAllByUser(expected.getUserId());
 
     // then
     assertNotNull(actual);
@@ -65,13 +66,13 @@ class PreferencePersistenceAdapterIT extends IntegrationTest implements Postgres
     // given
 
     // when
-    Stream<PreferenceEntity> actual = adapter.getAll();
+    Stream<Preference> actual = adapter.getAll();
 
     // then
     assertNotNull(actual);
-    PreferenceEntity entity = actual.findFirst().get();
-    assertEquals(expected.getCurrency(), entity.getCurrency());
-    assertEquals(expected.getRate(), entity.getRate());
+    Preference preference = actual.findFirst().get();
+    assertEquals(expected.getCurrency(), preference.getCurrency());
+    assertEquals(expected.getRate(), preference.getRate());
   }
 
 }

@@ -40,7 +40,7 @@ class AnalyticalSchedulerTest {
     // given
     when(versionPersistenceAdapter.current()).thenReturn(version);
     when(currencyGateway.poll(version, 1L)).thenReturn(response);
-    when(rateMapper.toDomain(response.getRates())).thenReturn(List.of(rate));
+    when(rateMapper.toModel(response.getRates())).thenReturn(List.of(rate));
 
     // when
     scheduler.schedule();
@@ -58,7 +58,7 @@ class AnalyticalSchedulerTest {
     response.setVersion(null);
     when(versionPersistenceAdapter.current()).thenReturn(version);
     when(currencyGateway.poll(version, 1L)).thenReturn(response);
-    when(rateMapper.toDomain(response.getRates())).thenReturn(List.of(rate));
+    when(rateMapper.toModel(response.getRates())).thenReturn(List.of(rate));
 
     // when
     scheduler.schedule();

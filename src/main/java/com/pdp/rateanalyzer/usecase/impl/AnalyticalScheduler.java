@@ -1,5 +1,7 @@
 package com.pdp.rateanalyzer.usecase.impl;
 
+import static java.util.Objects.isNull;
+
 import com.pdp.rateanalyzer.adapter.VersionPersistenceAdapter;
 import com.pdp.rateanalyzer.api.dto.PollingResponseDto;
 import com.pdp.rateanalyzer.domain.mapper.RateMapper;
@@ -7,6 +9,7 @@ import com.pdp.rateanalyzer.gateway.CurrencyGateway;
 import com.pdp.rateanalyzer.usecase.AnalyzeRatesUseCase;
 import com.pdp.rateanalyzer.usecase.ScheduleAnalysisUseCase;
 import lombok.RequiredArgsConstructor;
+import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -23,13 +26,15 @@ public class AnalyticalScheduler implements ScheduleAnalysisUseCase {
   @Async
   @Override
   @Scheduled(cron = "* * * * * *")
-  @Scheduled(fixedRate = 500000000)
+  @SchedulerLock(name = "calculateAnalyticsLock")
   public void schedule() {
     PollingResponseDto response = currencyGateway.poll(versionPersistenceAdapter.current(), 1L);
-    if (response.getVersion() != null) {
+    if (!isNull(response.getVersion())) {
       versionPersistenceAdapter.update(response.getVersion());
     }
-    analyzer.analyze(rateMapper.toDomain(response.getRates()));
+    if (!isNull(response.getRates())) {
+      analyzer.analyze(rateMapper.toModel(response.getRates()));
+    }
   }
 
 }

@@ -2,19 +2,28 @@ package com.pdp.rateanalyzer.domain.mapper;
 
 import com.pdp.rateanalyzer.api.dto.CreatePreferenceDto;
 import com.pdp.rateanalyzer.api.dto.PreferenceDto;
+import com.pdp.rateanalyzer.domain.Preference;
 import com.pdp.rateanalyzer.domain.PreferenceEntity;
-import java.util.List;
 import org.mapstruct.Mapper;
+
+import java.util.List;
+import java.util.stream.Stream;
 
 @Mapper(componentModel = "spring")
 public interface PreferenceMapper {
 
-  PreferenceEntity toEntity(PreferenceDto dto);
+  Preference toModel(PreferenceEntity entity);
 
-  PreferenceEntity toEntity(CreatePreferenceDto dto);
+  Stream<Preference> toModel(Stream<PreferenceEntity> entities);
 
-  PreferenceDto toDto(PreferenceEntity preference);
+  List<Preference> toModel(List<PreferenceEntity> entities);
 
-  List<PreferenceDto> toDto(List<PreferenceEntity> preferences);
+  Preference toModel(CreatePreferenceDto dto);
+
+  PreferenceEntity toEntity(Preference model);
+
+  PreferenceDto toDto(Preference model);
+
+  List<PreferenceDto> toDto(List<Preference> models);
 
 }
